@@ -6,7 +6,7 @@ export const getHomePage = async (req, res) => {
   const limit = req.query.limit || 10;
 
   // fetch movies
-  const phimMoi = getNewMovies({ page, limit });
+  const reviewMoi = getNewMovies({ page, limit });
 
   // fetch phim hanh dong
   const phimHanhDong = getNewMovies({
@@ -39,7 +39,7 @@ export const getHomePage = async (req, res) => {
 
   // declare a promise.all
   const promises = [
-    phimMoi,
+    reviewMoi,
     phimHanhDong,
     phimLe,
     phimHoatHinh,
@@ -49,7 +49,7 @@ export const getHomePage = async (req, res) => {
 
   // await all promises
   const [
-    phimMoiData,
+    reviewMoiData,
     phimHanhDongData,
     phimLeData,
     phimHoatHinhData,
@@ -60,7 +60,7 @@ export const getHomePage = async (req, res) => {
   res.render("index", {
     title: "Trang chủ",
     data: {
-      phimMoi: phimMoiData,
+      reviewMoi: reviewMoiData,
       phimHanhDong: phimHanhDongData,
       phimLe: phimLeData,
       phimHoatHinh: phimHoatHinhData,
