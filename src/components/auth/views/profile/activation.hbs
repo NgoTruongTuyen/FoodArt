@@ -1,0 +1,65 @@
+{{#>profile}}
+{{#if message}}
+<div class="bg-green-300 dark:bg-green-400 hover:bg-green-400 dark:hover:bg-green-500 p-2 rounded my-2">
+    {{message}}
+</div>
+{{/if}}
+
+{{#ifEquals user.isActivated false}}
+<div class="flex flex-col justify-center items-center gap-2">
+
+    <h3 class="text-2xl font-semibold text-rose-300">Welcome! Let's Activate Your Account</h3>
+    <p class="text-lg">
+        Please click the button below to activate your account.
+    </p>
+    <button onclick="SendActivation(this)" data-id="{{user.id}}"
+        class="text-white shadow-md rounded transform transition hover:scale-110 px-4 py-2 flex items-center m-1 bg-blue-400 gap-2">
+        <i class="fas fa-user-check"></i>
+        <span class="text-lg">Activate</span>
+    </button>
+
+</div>
+{{else}}
+<div class="flex flex-col justify-center items-center gap-2">
+    <h3 class="text-2xl font-semibold text-rose-300">Welcome!</h3>
+    <p class="text-lg">
+        You have already activated your account.
+    </p>
+</div>
+{{/ifEquals}}
+</div>
+{{/profile}}
+
+<style>
+    [x-cloak] {
+        display: none !important;
+    }
+</style>
+
+<script>
+    function SendActivation(e) {
+        const id = e.getAttribute('data-id');
+        console.log(id);
+        $.ajax({
+            url: `/user/activate/${id}`,
+            method: 'POST',
+            data: {
+                _csrf: '{{@root/_csrfToken}}'
+            },
+            success: function (data) {
+                console.log(data);
+                if (data.success) {
+                    $(e).parent().html(`
+                        <div class="flex flex-col justify-center items-center gap-2">
+                            <h3 class="text-2xl font-semibold text-rose-300">Activation</h3>
+                            <p class="text-lg">
+                                Please check your email for the activation link.
+                            </p>
+                        </div>
+                    `);
+                }
+            }
+        });
+    }
+
+</script>

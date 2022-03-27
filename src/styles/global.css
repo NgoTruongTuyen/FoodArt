@@ -1,0 +1,286 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+}
+@layer components {
+  [data-tooltip]:before {
+    position: absolute;
+    content: attr(data-tooltip);
+    @apply bg-white rounded p-2 text-black px-4 font-mono shadow-md border border-solid border-black;
+
+    top: 3.2rem;
+    left: 0;
+    z-index: 20;
+  }
+
+  [data-tooltip] {
+    position: relative;
+    white-space: nowrap;
+  }
+
+  [data-tooltip]:before,
+  [data-tooltip]:after {
+    transition: all 0.5s ease;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  [data-tooltip]:after {
+    content: "";
+    clip-path: polygon(50% 50%, 0% 100%, 100% 100%);
+    background-color: rgb(112, 112, 112);
+    width: 0.8rem;
+    height: 0.8rem;
+    position: absolute;
+    top: 2.4rem;
+    left: 1rem;
+  }
+
+  [data-tooltip]:hover:before,
+  [data-tooltip]:hover:after {
+    @apply bg-opacity-90 opacity-100;
+  }
+
+  .input {
+    @apply p-2 border rounded text-black;
+  }
+
+  .tabs {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 1rem;
+    grid-gap: 0.25rem;
+    @apply border-b border-black cursor-pointer;
+  }
+
+  .tabs .tab-lifted {
+    border: 1px solid;
+    border-top-left-radius: 7px;
+    border-top-right-radius: 7px;
+    border-width: 1px 1px 0px 1px;
+    @apply px-4;
+  }
+
+  .tabs .tab-lifted:hover {
+    @apply bg-pink-200 dark:bg-pink-500;
+  }
+
+  .tabs .tab-active {
+    @apply bg-fuchsia-300 text-black;
+  }
+
+  .spinner {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 3px solid #333;
+    border-top-color: #fff;
+    animation: spin 1s linear infinite;
+  }
+
+  @keyframes spin {
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+
+  .btn {
+    @apply p-2 rounded transform;
+    animation: button-pop var(--animation-btn, 0.25s) ease-out;
+  }
+
+  .btn:hover {
+    @apply bg-opacity-80;
+  }
+
+  .btn-primary {
+    @apply bg-blue-400 text-white;
+  }
+
+  .btn-gray {
+    @apply bg-gray-200 text-gray-700 dark:bg-gray-700 dark:text-white;
+  }
+
+  .form-control {
+    @apply flex flex-col;
+  }
+  .label {
+    @apply flex;
+  }
+  .label-text {
+    @apply flex-grow;
+  }
+
+  @keyframes button-pop {
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.1);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+}
+@layer components {
+  #navbar {
+    top: 0;
+    transition: top 0.3s;
+  }
+
+  .fadeOut {
+    animation: fadeOut 2s 8s forwards;
+  }
+
+  .toast {
+    animation: slideInLeft ease 0.3s, fadeOut linear 1s 6s forwards;
+  }
+
+  @keyframes fadeOut {
+    0% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+      display: none;
+    }
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+
+    to {
+      opacity: 1;
+    }
+  }
+
+  .fadeInClass {
+    animation-name: fadeIn;
+    animation-duration: 1s;
+  }
+  .card.image-full > figure img {
+    @apply h-48;
+    -o-object-fit: cover;
+    object-fit: cover;
+  }
+
+  .card-badge {
+    position: absolute;
+    top: 0;
+    z-index: 1;
+    padding: 0.5rem;
+    font-weight: bold;
+    @apply text-white text-sm;
+    @apply rounded-md bg-rose-600;
+  }
+  .card-title {
+    font-size: 1rem;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    font-weight: normal;
+    text-align: center;
+    margin-bottom: 0;
+  }
+
+  .toast {
+    @apply bg-white text-black;
+    @apply rounded-md;
+    @apply p-2;
+    @apply text-sm;
+    @apply flex;
+    @apply flex-col;
+    @apply justify-center;
+    @apply items-center;
+    @apply m-2;
+    @apply transform;
+    animation: toast-pop var(--animation-toast, 0.25s) ease-out,
+      toast-fade var(--animation-toast, 0.25s) ease-out;
+  }
+
+  .toast-success {
+    @apply bg-green-200 text-green-800;
+  }
+
+  .toast-error {
+    @apply bg-red-200 text-red-800;
+  }
+
+  .toast-info {
+    @apply bg-blue-200 text-blue-800;
+  }
+
+  .toast-warning {
+    @apply bg-orange-200 text-orange-800;
+  }
+
+  .toast-text {
+    @apply flex-grow;
+  }
+
+  @keyframes toast-pop {
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.1);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+
+  @keyframes toast-fade {
+    0% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+    }
+  }
+
+  @keyframes appear {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+
+  .appear {
+    animation: appear var(--animation-appear, 0.5s) ease-out;
+  }
+}
+
+@layer utilities {
+  .text-base-content {
+    @apply text-black;
+  }
+  .dark .text-base-content {
+    @apply text-white;
+  }
+}
+
+html[data-theme="dark"] .card-badge {
+  @apply bg-purple-600;
+}
+
+.hiddeni {
+  display: none !important;
+}
+
+.btn-purple {
+  @apply mb-2 bg-purple-500 hover:bg-purple-600 p-2 rounded text-white transition duration-300;
+}
+
+[x-cloak] {
+  display: none !important;
+}
