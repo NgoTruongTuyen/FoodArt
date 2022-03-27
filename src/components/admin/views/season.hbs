@@ -1,0 +1,10 @@
+{{#> admin}}
+</div>
+{{dish.title}}
+
+{{#each season.episodes}}
+<li>
+  {{> card title=@root/dish.title englishTitle=@root/dish.englishTitle image=image }}
+</li>
+{{/each}}
+{{/admin}}
