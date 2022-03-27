@@ -5,7 +5,7 @@ import {
   deleteComment,
   increaseLikeCount,
   postAnonymousComment,
-} from "../components/movies/commentController";
+} from "../components/dishes/commentController";
 import { requireAuth } from "../middlewares/auth.middleware";
 const router = Router();
 

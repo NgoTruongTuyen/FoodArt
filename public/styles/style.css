@@ -789,8 +789,8 @@ video {
             animation: fadeOut 2s 8s forwards;
   }
 .toast {
-    -webkit-animation: slideInLeft ease .3s, fadeOut linear 1s 6s forwards;
-            animation: slideInLeft ease .3s, fadeOut linear 1s 6s forwards;
+    -webkit-animation: slideInLeft ease 0.3s, fadeOut linear 1s 6s forwards;
+            animation: slideInLeft ease 0.3s, fadeOut linear 1s 6s forwards;
   }
 @-webkit-keyframes fadeOut {
     0% {
@@ -2305,14 +2305,14 @@ html[data-theme="dark"] .card-badge {
 	background-color: rgba(21, 128, 61, var(--tw-bg-opacity));
 }
 
-.dark .dark\:bg-pink-500 {
-	--tw-bg-opacity: 1;
-	background-color: rgba(236, 72, 153, var(--tw-bg-opacity));
-}
-
 .dark .dark\:bg-gray-600 {
 	--tw-bg-opacity: 1;
 	background-color: rgba(82, 82, 91, var(--tw-bg-opacity));
+}
+
+.dark .dark\:bg-pink-500 {
+	--tw-bg-opacity: 1;
+	background-color: rgba(236, 72, 153, var(--tw-bg-opacity));
 }
 
 .dark .dark\:bg-green-400 {

@@ -1,24 +1,24 @@
-import Category from "../movies/categoryModel";
-import Movie from "../movies/movieModel";
+import Category from "../dishes/categoryModel";
+import Dish from "../dishes/dishModel";
 import User from "../auth/userModel";
-import Season from "../movies/seasonModel";
-import Episode from "../movies/episodeModel";
+import Season from "../dishes/seasonModel";
+import Episode from "../dishes/episodeModel";
 import createError from "http-errors";
 import { hashPassword } from "../../utils";
 
 export const getAdmin = async (req, res, next) => {
   try {
-    // get user count, category count, movie count
-    const [users, categories, movies, admins] = await Promise.all([
+    // get user count, category count, dish count
+    const [users, categories, dishes, admins] = await Promise.all([
       User.countDocuments({ role: "user" }),
       Category.countDocuments(),
-      Movie.countDocuments(),
+      Dish.countDocuments(),
       User.countDocuments({ role: "admin" }),
     ]);
 
     res.render("admin/views/index", {
       title: "Admin",
-      count: { users, categories, movies, admins },
+      count: { users, categories, dishes, admins },
     });
   } catch (error) {
     next(createError(500));
@@ -93,7 +93,7 @@ export const getUserPanel = async (req, res) => {
   });
 };
 
-// Movie panel
+// Dish panel
 export const moviePanelGetIndex = async (req, res) => {
   const page = parseInt(req.query.page) || 1;
   const limit = parseInt(req.query.limit) || 10;
@@ -101,8 +101,8 @@ export const moviePanelGetIndex = async (req, res) => {
   const error = req.session?.error;
   const success = req.session?.success;
 
-  // get all movies, sort, and populate all
-  const movies = await Movie.find({})
+  // get all dishes, sort, and populate all
+  const dishes = await Dish.find({})
     //.sort({ createdAt: -1 })
     .skip((page - 1) * limit)
     .limit(limit)
@@ -113,8 +113,8 @@ export const moviePanelGetIndex = async (req, res) => {
 
   const categories = await Category.find({});
 
-  // get movie count
-  const movieCount = await Movie.countDocuments();
+  // get dish count
+  const movieCount = await Dish.countDocuments();
 
   // get total pages
   const totalPages = Math.ceil(movieCount / 10);
@@ -122,15 +122,15 @@ export const moviePanelGetIndex = async (req, res) => {
   const pagination = Array.from({ length: totalPages }, (_, i) => i + 1).map(
     (page) => {
       return {
-        url: `movies?page=${page}`,
+        url: `dishes?page=${page}`,
         number: page,
       };
     }
   );
 
-  res.render("admin/views/movies", {
+  res.render("admin/views/dishes", {
     title: "Admin",
-    movies,
+    dishes,
     movieCount,
     categories,
     pagination,
@@ -141,7 +141,7 @@ export const moviePanelGetIndex = async (req, res) => {
 
 export const moviePanelGetMovie = async (req, res) => {
   try {
-    const movie = await Movie.findOne({ slug: req.params.slug }).populate({
+    const dish = await Dish.findOne({ slug: req.params.slug }).populate({
       path: "seasons",
       model: Season,
       populate: {
@@ -150,14 +150,14 @@ export const moviePanelGetMovie = async (req, res) => {
       },
     });
 
-    if (!movie) throw new Error("Movie not found");
+    if (!dish) throw new Error("Dish not found");
 
-    res.render("admin/views/movies", {
+    res.render("admin/views/dishes", {
       title: "Admin",
-      movie,
+      dish,
     });
   } catch (err) {
-    res.redirect("/admin/movies");
+    res.redirect("/admin/dishes");
   }
 };
 
@@ -165,11 +165,11 @@ export const moviePanelEditSeason = async (req, res) => {
   try {
     const { slug, seasonSlug } = req.params;
 
-    const { _id: movieId } = await Movie.findOne({ slug });
+    const { _id: movieId } = await Dish.findOne({ slug });
 
     const season = await Season.findOne({
       slug: seasonSlug,
-      movie: movieId,
+      dish: movieId,
     }).populate({
       path: "episodes",
       model: Episode,
@@ -191,7 +191,7 @@ export const moviePanelEditMovie = async (req, res) => {
   const { slug } = req.params;
 
   try {
-    const movie = await Movie.findOne({ slug }).populate({
+    const dish = await Dish.findOne({ slug }).populate({
       path: "seasons",
       model: Season,
       populate: {
@@ -203,28 +203,28 @@ export const moviePanelEditMovie = async (req, res) => {
     //get all categories
     const categories = await Category.find({});
 
-    if (!movie) throw new Error("Movie not found");
+    if (!dish) throw new Error("Dish not found");
 
-    res.render("admin/views/movie-edit", {
+    res.render("admin/views/dish-edit", {
       title: "Admin",
-      movie,
+      dish,
       categories,
     });
   } catch (err) {
     req.flash("error", err.message);
-    res.redirect("/admin/movies");
+    res.redirect("/admin/dishes");
   }
 };
 
 export const moviePanelPostMovie = async (req, res) => {
   try {
-    const movie = await Movie.findOne({ slug: req.params.slug });
+    const dish = await Dish.findOne({ slug: req.params.slug });
 
-    if (!movie) throw new Error("Movie not found");
+    if (!dish) throw new Error("Dish not found");
 
     const { title, description, year, rating, duration, trailer } = req.body;
 
-    await Movie.findByIdAndUpdate(movie._id, {
+    await Dish.findByIdAndUpdate(dish._id, {
       title,
       description,
       year,
@@ -233,13 +233,13 @@ export const moviePanelPostMovie = async (req, res) => {
       trailer,
     });
 
-    res.render("admin/views/movies", {
+    res.render("admin/views/dishes", {
       title: "Admin",
-      movie,
-      success: "Movie updated successfully",
+      dish,
+      success: "Dish updated successfully",
     });
   } catch (err) {
-    res.redirect("/admin/movies");
+    res.redirect("/admin/dishes");
   }
 };
 

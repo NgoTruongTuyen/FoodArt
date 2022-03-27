@@ -46,24 +46,24 @@
 <script>
   function fetchApi(search) {
     const data = jQuery.ajax({
-      url: '/movies/?matchName=' + search,
+      url: '/dishes/?matchName=' + search,
       dataType: 'json',
       success: function (data) {
         if (!data.success) {
           return;
         }
 
-        const { data: movies } = data;
+        const { data: dishes } = data;
 
         const $searchResult = $("#searchResult");
 
         $searchResult.empty();
 
-        movies.forEach(movie => {
-          const { slug, id, title, englishTitle, image, description } = movie;
+        dishes.forEach(dish => {
+          const { slug, id, title, englishTitle, image, description } = dish;
 
-          const $movie = $(`
-            <a href="/movies/${slug}">
+          const $dish = $(`
+            <a href="/dishes/${slug}">
               <div class="flex flex-col md:flex-row items-center gap-2 p-2 hover:bg-gray-200 dark:hover:bg-gray-800 border-b border-fuchsia-300 bounceUp">
                 <img src="${image}" alt="${title}" class="w-40 h-64 bg-contain">
                 <div class="flex-grow divide-y mb-2">
@@ -72,17 +72,17 @@
                     <span class="text-opacity-80">${englishTitle}</span>
                   </div>
                   <div class="text-opacity-70 line-clamp-3">
-                    ${movie.description}
+                    ${dish.description}
                   </div>
                 </div>
               </div>
             </a>
           `);
 
-          //show movie jQuery animation
-          $movie.hide();
-          $movie.appendTo($searchResult);
-          $movie.fadeIn(500);
+          //show dish jQuery animation
+          $dish.hide();
+          $dish.appendTo($searchResult);
+          $dish.fadeIn(500);
 
 
         });

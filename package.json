@@ -13,6 +13,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@ckeditor/ckeditor5-html-embed": "^33.0.0",
     "@sendgrid/mail": "^7.6.0",
     "@tailwindcss/line-clamp": "^0.2.2",
     "bcrypt": "^5.0.1",

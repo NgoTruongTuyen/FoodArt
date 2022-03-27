@@ -71,7 +71,7 @@
   <ul class="pagination divide-x flex justify-center mt-4">
     {{!-- next page --}}
     {{#ifNotEquals currentPage pagination.length}}
-    <a class="page-link" href="/movies/{{movie.slug}}?page={{inc @root/currentPage}}" data-tooltip=" Trang tiếp theo">
+    <a class="page-link" href="/dishes/{{dish.slug}}?page={{inc @root/currentPage}}" data-tooltip=" Trang tiếp theo">
       <li
         class="page-item bg-rose-400 max-w-[40px] dark:bg-gray-500 p-2 text-white px-4 hover:bg-gray-700 dark:hover:bg-rose-600 {{#ifEquals @root/currentIndex @index}}disabled bg-rose-600 dark:bg-gray-800{{/ifEquals}}">
         <i class="fas fa-chevron-right"></i>
@@ -91,7 +91,7 @@
 
     {{!-- prev page --}}
     {{#ifNotEquals currentPage 1}}
-    <a class="page-link" href="/movies/{{movie.slug}}?page={{dec @root/currentPage}}" data-tooltip=" Trang trước">
+    <a class="page-link" href="/dishes/{{dish.slug}}?page={{dec @root/currentPage}}" data-tooltip=" Trang trước">
       <li
         class="page-item bg-rose-400 max-w-[40px] dark:bg-gray-500 p-2 text-white px-4 hover:bg-gray-700 dark:hover:bg-rose-600 {{#ifEquals @root/currentIndex @index}}disabled bg-rose-600 dark:bg-gray-800{{/ifEquals}}">
         <i class="fas fa-chevron-left"></i>
@@ -207,7 +207,7 @@
     };
 
     $.ajax({
-      url: '/comments/anonymous/{{movie.slug}}',
+      url: '/comments/anonymous/{{dish.slug}}',
       method: 'POST',
       data,
       success: (res) => {
@@ -238,7 +238,7 @@
       _csrf: '{{@root/_csrfToken}}',
     };
     $.ajax({
-      url: '/comments/{{movie.slug}}',
+      url: '/comments/{{dish.slug}}',
       method: 'POST',
       data,
       success: (res) => {

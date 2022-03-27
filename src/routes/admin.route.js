@@ -28,15 +28,15 @@ router.get("/admins", getAdminPanel);
 
 router.get("/users", getUserPanel);
 
-router.get("/movies/", moviePanelGetIndex);
+router.get("/dishes/", moviePanelGetIndex);
 
-router.get("/movies/:slug", moviePanelGetMovie);
+router.get("/dishes/:slug", moviePanelGetMovie);
 
-router.get("/movies/:slug/edit", moviePanelEditMovie);
+router.get("/dishes/:slug/edit", moviePanelEditMovie);
 
-router.get("/movies/:slug/season/:seasonSlug", moviePanelEditSeason);
+router.get("/dishes/:slug/season/:seasonSlug", moviePanelEditSeason);
 
-router.post("/movies/:slug", moviePanelPostMovie);
+router.post("/dishes/:slug", moviePanelPostMovie);
 
 router.get("/categories", getCategoriesPanel);
 

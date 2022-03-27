@@ -78,7 +78,7 @@
 
   // fetch api rank using ajax
   jQuery.ajax({
-    url: "/movies/ranking/",
+    url: "/dishes/ranking/",
     dataType: "json",
     success: function (res) {
       const { data } = res;
@@ -89,7 +89,7 @@
         const cardClone = $card.clone();
 
         try {
-          cardClone.attr("href", `/movies/${slug}`);
+          cardClone.attr("href", `/dishes/${slug}`);
           cardClone.children().first().css("height", "7rem");
           cardClone.find("[data-card='title']").text(title);
           cardClone.find("[data-card='image']").attr("src", image).attr("alt", title).css("object-fit", "cover").css("object-position", "center");

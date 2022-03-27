@@ -1,10 +1,10 @@
 {{#> admin}}
 </div>
-{{movie.title}}
+{{dish.title}}
 
 {{#each season.episodes}}
 <li>
-  {{> card title=@root/movie.title englishTitle=@root/movie.englishTitle image=image }}
+  {{> card title=@root/dish.title englishTitle=@root/dish.englishTitle image=image }}
 </li>
 {{/each}}
 {{/admin}}

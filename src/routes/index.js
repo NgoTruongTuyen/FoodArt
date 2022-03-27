@@ -8,7 +8,7 @@ import shopRoute from "./shop.route";
 import adminRoute from "./admin.route";
 import logOutRoute from "./logout.route";
 import categoriesRoute from "./categories.route";
-import movieRoute from "./movies.route";
+import movieRoute from "./dishes.route";
 import profileRoute from "./profile.route";
 import homeRoute from "./home.route";
 import messagesRoute from "./messages.route";
@@ -58,7 +58,7 @@ const defaultRoutes = [
     route: categoriesRoute,
   },
   {
-    path: "/movies",
+    path: "/dishes",
     route: movieRoute,
   },
   {

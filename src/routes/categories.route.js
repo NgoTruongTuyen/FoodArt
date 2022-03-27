@@ -5,7 +5,7 @@ import {
   addCategory, 
   getCategories, 
   pagingCategories
-} from "../components/movies/categoryController";
+} from "../components/dishes/categoryController";
 
 const router = Router();
 

@@ -118,7 +118,7 @@
 
   function fetchApi({ categories = [], name = '', page = 1, limit = POST_LIMIT }) {
     $.ajax({
-      url: '{{url}}/movies/',
+      url: '{{url}}/dishes/',
       type: 'GET',
       data: {
         categorySlugs: categories.map(item => item.slug),
@@ -136,7 +136,7 @@
         data.forEach(({ slug, image, title, englishTitle }) => {
           const $clone = $card.clone();
 
-          $clone.attr("href", `/movies/${slug}`);
+          $clone.attr("href", `/dishes/${slug}`);
           $clone.children().first().css("height", "8rem");
           $clone.find("[data-card='title']").text(title);
           $clone.find("[data-card='image']").attr("src", image).attr("alt", title).css("object-fit", "cover").css("object-position", "center");

@@ -1,9 +1,9 @@
 import User from "./userModel";
-import Movie from "../movies/movieModel";
+import Dish from "../dishes/dishModel";
 import createError from "http-errors";
 
 export const getFavorites = async (req, res) => {
-    //get user favorite movies
+    //get user favorite dishes
     const user = await User.findById(res.locals.user.id).populate("favorites");
   
     const favoriteMovies = user.favorites;
@@ -20,18 +20,18 @@ export const addFavorite = async (req, res, next) => {
       const user = await User.findById(userId);
   
       // slug to objectId
-      const movie = await Movie.findOne({ slug });
+      const dish = await Dish.findOne({ slug });
   
-      // check if movie is already in favorites
+      // check if dish is already in favorites
       const isFavorite = user.favorites.some(
-        (movieId) => movieId.toString() === movie._id.toString()
+        (movieId) => movieId.toString() === dish._id.toString()
       );
   
       if (isFavorite) {
         throw createError(400, "Đã có trong danh sách yêu thích");
       }
   
-      user.favorites.push(movie._id);
+      user.favorites.push(dish._id);
   
       await user.save();
   
@@ -55,9 +55,9 @@ export const removeFavorite = async (req, res, next) => {
       const user = await User.findById(res.locals.user.id);
   
       // slug to objectId
-      const movie = await Movie.findOne({ slug });
+      const dish = await Dish.findOne({ slug });
   
-      user.favorites.pull(movie._id);
+      user.favorites.pull(dish._id);
   
       await user.save();
   
