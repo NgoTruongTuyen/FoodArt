@@ -34,7 +34,7 @@ router.get("/dishes/:slug", moviePanelGetMovie);
 
 router.get("/dishes/:slug/edit", moviePanelEditMovie);
 
-router.get("/dishes/:slug/season/:seasonSlug", moviePanelEditSeason);
+// router.get("/dishes/:slug/season/:seasonSlug", moviePanelEditSeason);
 
 router.post("/dishes/:slug", moviePanelPostMovie);
 

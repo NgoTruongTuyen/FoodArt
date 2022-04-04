@@ -1,7 +1,11 @@
-<div class="grid grid-cols-1 lg:grid-cols-4 md:gap-2 ">
-  <div class="col-span-3 mt-2 md:mt-0">
-
-    <h2 class="text-2xl uppercase mx-2">Review mới</h2>
+<div class="grid grid-cols-1 lg:grid-cols-4 md:gap-2">
+  <div class="col-span-3 p-2 mt-2 border-2 border-gray-700 shadow-lg bg-white">
+    <h2 class="px-2 text-xl mx-2 text-center -mt-5 justify-start w-[fit-content] bg-white">
+      {{!-- Font awesome --}}
+      
+      <i class="fa-solid fa-list"></i>
+      <span class="">Review mới</span>
+      </h2>
     <div class="p-2 col-span-2">
       {{> carousel barId="reviewMoi" slidesPerView=3 items=data.reviewMoi }}
     </div>
@@ -10,11 +14,8 @@
     <div class="p-2 col-span-2">
       {{> carousel barId="phimHanhDong" slidesPerView=3 items=data.phimHanhDong }}
     </div> --}}
-
-    <div class="bg-base-200 grid gap-2 my-2">
-      <img src="https://via.placeholder.com/800x150" class="object-cover w-full" />
-    </div>
   </div>
+
 
   <div class="md:row-span-2 place-self-start flex flex-col gap-2 w-full px-2">
     <div x-data="{bxhOpen: true}">
@@ -57,6 +58,9 @@
 
 
 </div>
+  <div class="bg-base-200 grid gap-2 my-2 w-full">
+    <img src="https://via.placeholder.com/800x100" class="object-cover w-full" />
+  </div>
 
 {{!-- <div class="my-2 mx-2">
   <h2 class="text-2xl mx-2 uppercase">Phim kinh dị</h2>

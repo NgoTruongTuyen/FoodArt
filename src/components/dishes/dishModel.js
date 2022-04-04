@@ -18,7 +18,7 @@ const dishSchema = new mongoose.Schema({
     // enum type: complete, in-progress, dropped
     type: String,
     required: true,
-    enum: ["completed", "in-progress", "dropped"],
+    enum: ["complete", "in-progress", "dropped"],
     default: "in-progress",
   },
   time: {
@@ -28,12 +28,6 @@ const dishSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
-  trailer: {
-    type: String,
-  },
-  premiere: {
-    type: Date,
-  },
   viewCount: {
     type: Number,
     default: 0,
@@ -42,22 +36,9 @@ const dishSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  releaseYear: {
-    type: Number,
-    required: true,
-    // validate releaseYear to be integer, greater than 1900 and less than 2100
-    validate: {
-      validator: function (releaseYear) {
-        return releaseYear > 1900 && releaseYear < 2100;
-      },
-    },
-  },
   rating: {
     type: Number,
     default: null,
-  },
-  imdbId: {
-    type: String,
   },
   slug: {
     type: String,
@@ -68,12 +49,6 @@ const dishSchema = new mongoose.Schema({
     {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Category",
-    },
-  ],
-  seasons: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Season",
     },
   ],
 });

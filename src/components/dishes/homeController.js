@@ -1,4 +1,4 @@
-import { getNewMovies, getMovieWithOneEpisode } from "./dishesService";
+import { getNewMovies } from "./dishesService";
 import User from "../auth/userModel";
 
 export const getHomePage = async (req, res) => {
@@ -14,9 +14,6 @@ export const getHomePage = async (req, res) => {
     limit,
     categorySlugs: ["phim-hanh-dong"],
   });
-
-  // fetch phim le
-  const phimLe = getMovieWithOneEpisode({ page, limit });
 
   // fetch phim hoat hinh
   const phimHoatHinh = getNewMovies({
@@ -41,7 +38,6 @@ export const getHomePage = async (req, res) => {
   const promises = [
     reviewMoi,
     phimHanhDong,
-    phimLe,
     phimHoatHinh,
     phimKinhDi,
     onlineUsers,

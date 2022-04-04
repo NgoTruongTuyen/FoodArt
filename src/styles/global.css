@@ -271,6 +271,7 @@
 
 html[data-theme="dark"] .card-badge {
   @apply bg-purple-600;
+  background: #f9f9f9;
 }
 
 .hiddeni {
