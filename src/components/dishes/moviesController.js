@@ -1,14 +1,12 @@
 import Dish from "./dishModel";
 import User from "../auth/userModel";
 import Category from "./categoryModel";
-import Season from "./seasonModel";
-import Episode from "./episodeModel";
 import Comment from "./commentModel";
 
 import createError from "http-errors";
 import {
   getNewMovies,
-  getMovieWithOneEpisode,
+  getDishWithTheSameCategory,
   increaseViewCount,
   getRandomMovies,
 } from "./dishesService";
@@ -38,8 +36,9 @@ export const getMovies = async (req, res, next) => {
       data: dishes,
       page: page,
       length: dishes.length,
-      nextPage: `${req.protocol}://${req.get("host")}/api/dishes?page=${page + 1
-        }&limit=${limit}&matchName=${matchName}`,
+      nextPage: `${req.protocol}://${req.get("host")}/api/dishes?page=${
+        page + 1
+      }&limit=${limit}&matchName=${matchName}`,
     });
   } catch (error) {
     next(createError(error));
@@ -65,8 +64,9 @@ export const getTopMovies = async (req, res, next) => {
       success: true,
       data: dishes,
       length: dishes.length,
-      nextPage: `${req.protocol}://${req.get("host")}/dishes?page=${page + 1
-        }&limit=${limit}`,
+      nextPage: `${req.protocol}://${req.get("host")}/dishes?page=${
+        page + 1
+      }&limit=${limit}`,
     });
   } catch (error) {
     next(createError(error));
@@ -79,19 +79,10 @@ export const getSingleMovie = async (req, res, next) => {
 
     const success = req.session?.success;
 
-    const dish = await Dish.findOne({ slug })
-      .populate({
-        path: "categories",
-        model: Category,
-      })
-      .populate({
-        path: "seasons",
-        model: Season,
-        populate: {
-          path: "episodes",
-          model: Episode,
-        },
-      });
+    const dish = await Dish.findOne({ slug }).populate({
+      path: "categories",
+      model: Category,
+    });
 
     if (!dish) {
       throw new Error("Dish not found");
@@ -118,10 +109,14 @@ export const getSingleMovie = async (req, res, next) => {
     const page = parseInt(req.query.page) || 1;
     const limit = parseInt(5);
     const start = (page - 1) * limit;
-    const comments = Comment.find({ dish: dish._id }).skip(start).limit(limit).populate({
-      path: "user",
-      model: User,
-    }).sort({ createdAt: -1 });
+    const comments = Comment.find({ dish: dish._id })
+      .skip(start)
+      .limit(limit)
+      .populate({
+        path: "user",
+        model: User,
+      })
+      .sort({ createdAt: -1 });
     const commentCount = await Comment.countDocuments({ dish: dish._id });
     // total pages
     const totalPages = Math.ceil(commentCount / limit);
@@ -130,10 +125,15 @@ export const getSingleMovie = async (req, res, next) => {
         return {
           url: `/dishes/${dish.slug}?page=${page}`,
           number: page,
-        }
-      });
+        };
+      }
+    );
     // new dishes
-    const newSingleMovies = getMovieWithOneEpisode({ page: 1, limit: 10 });
+    const newSingleMovies = getDishWithTheSameCategory({
+      dish,
+      page: 1,
+      limit: 10,
+    });
     const randomMovies = getRandomMovies({ limit: 10 });
 
     const [commentsResolved, randomMoviesResolved, newSingleMoviesResolved] =
@@ -157,56 +157,14 @@ export const getSingleMovie = async (req, res, next) => {
   }
 };
 
-export const getSeason = async (req, res) => {
-  try {
-    const { slug, season } = req.params;
-
-    const dish = await Dish.findOne({ slug }).populate({
-      path: "seasons",
-      model: Season,
-      populate: {
-        path: "episodes",
-        model: Episode,
-      },
-    });
-
-    if (!dish) {
-      throw new Error("Dish not found");
-    }
-
-    const seasonData = dish.seasons.find((s) => s.number === season);
-
-    if (!seasonData) {
-      throw new Error("Season not found");
-    }
-
-    res.render("season", { dish, seasonData });
-  } catch (err) {
-    next(createError(404, err.message));
-  }
-};
-
 export const getEpisode = async (req, res, next) => {
   try {
     const { slug, season, episode } = req.params;
 
-    const dish = await Dish.findOne({ slug }).populate({
-      path: "seasons",
-      model: Season,
-      populate: {
-        path: "episodes",
-        model: Episode,
-      },
-    });
+    const dish = await Dish.findOne({ slug });
 
     if (!dish) {
       throw new Error("Dish not found");
-    }
-
-    const seasonData = dish.seasons.find((s) => s.slug === season);
-
-    if (!seasonData) {
-      throw new Error("Season not found");
     }
 
     const episodeData = seasonData.episodes.find((e) => e.slug === episode);
@@ -226,7 +184,6 @@ export const getEpisode = async (req, res, next) => {
       episode: episodeData,
       video,
     });
-
   } catch (err) {
     next(createError(404, err.message));
   }

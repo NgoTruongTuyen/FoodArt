@@ -1,8 +1,6 @@
 import Category from "../dishes/categoryModel";
 import Dish from "../dishes/dishModel";
 import User from "../auth/userModel";
-import Season from "../dishes/seasonModel";
-import Episode from "../dishes/episodeModel";
 import createError from "http-errors";
 import { hashPassword } from "../../utils";
 
@@ -141,14 +139,7 @@ export const moviePanelGetIndex = async (req, res) => {
 
 export const moviePanelGetMovie = async (req, res) => {
   try {
-    const dish = await Dish.findOne({ slug: req.params.slug }).populate({
-      path: "seasons",
-      model: Season,
-      populate: {
-        path: "episodes",
-        model: Episode,
-      },
-    });
+    const dish = await Dish.findOne({ slug: req.params.slug });
 
     if (!dish) throw new Error("Dish not found");
 
@@ -161,44 +152,11 @@ export const moviePanelGetMovie = async (req, res) => {
   }
 };
 
-export const moviePanelEditSeason = async (req, res) => {
-  try {
-    const { slug, seasonSlug } = req.params;
-
-    const { _id: movieId } = await Dish.findOne({ slug });
-
-    const season = await Season.findOne({
-      slug: seasonSlug,
-      dish: movieId,
-    }).populate({
-      path: "episodes",
-      model: Episode,
-    });
-
-    if (!season) throw new Error("Season not found");
-
-    // res.json({ success: true, season });
-    res.render("admin/views/season", {
-      title: "Admin",
-      season,
-    });
-  } catch (err) {
-    res.json({ success: false, err });
-  }
-};
-
 export const moviePanelEditMovie = async (req, res) => {
   const { slug } = req.params;
 
   try {
-    const dish = await Dish.findOne({ slug }).populate({
-      path: "seasons",
-      model: Season,
-      populate: {
-        path: "episodes",
-        model: Episode,
-      },
-    });
+    const dish = await Dish.findOne({ slug });
 
     //get all categories
     const categories = await Category.find({});
@@ -296,7 +254,11 @@ export const makeAdmin = async (req, res) => {
     await User.findByIdAndUpdate(user._id, {
       role: "admin",
     });
-    res.json({ success: true, message: "Chuyển " + username + " thành admin thành công !",user });
+    res.json({
+      success: true,
+      message: "Chuyển " + username + " thành admin thành công !",
+      user,
+    });
   } catch (err) {
     req.json({ success: false, err });
   }
@@ -311,9 +273,19 @@ export const banUser = async (req, res) => {
       banned: isBan,
     });
     if (isBan === "true") {
-      res.json({ success: true, message: "Ban " + username + " thành công", user, isBan });
+      res.json({
+        success: true,
+        message: "Ban " + username + " thành công",
+        user,
+        isBan,
+      });
     } else {
-      res.json({ success: true, message: "Unban " + username + " thành công", user, isBan });
+      res.json({
+        success: true,
+        message: "Unban " + username + " thành công",
+        user,
+        isBan,
+      });
     }
   } catch (err) {
     res.json({ success: false, err });
@@ -346,8 +318,12 @@ export const makeUser = async (req, res) => {
     await User.findByIdAndUpdate(user._id, {
       role: "user",
     });
-    res.json({ success: true, message: "Chuyển " + username + " thành user thành công !", user });
+    res.json({
+      success: true,
+      message: "Chuyển " + username + " thành user thành công !",
+      user,
+    });
   } catch (err) {
     req.json({ success: false, err });
   }
-}
+};
