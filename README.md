@@ -1,6 +1,6 @@
 # ReviewMonAn
 
-## _Thế giới điện ảnh đích thực_
+## Website review món ăn số 1 Việt Nam
 
 [![N|Power by Express](https://img.shields.io/badge/express-powered-brightgreen)](https://img.shields.io/badge/express-powered-brightgreen)
 
@@ -13,8 +13,7 @@ Review Mon An là một trang web review món ăn dành cho mọi người.
 Sử dụng một số mã nguồn mở
 
 - [node.js] - evented I/O for the backend
-- [Express] - fast node.js network app framework [@tjholowaychuk]
-- [DaisyUI] - daisyUIClean HTML with component classes and Customizable and themeable
+- [Expressjs] - fast node.js network app framework [@tjholowaychuk]
 - [Tailwindcss] - A utility-first CSS framework
 
 [Xem thêm tại đây](/package.json)
@@ -22,6 +21,15 @@ Sử dụng một số mã nguồn mở
 ## Installation
 
 Yêu cầu [Node.js](https://nodejs.org/) v10+ để chạy.
+
+Tạo một file .env với nội dung
+```sh
+MONGODB_URI=URL_STRING
+SENDGRID_API_KEY=APIKEY
+SESSION_SECRET=RANDOM_SECRET
+JWT_SECRET=RANDOM_SECRET
+DOMAIN_NAME=https://localhost:3000
+```
 
 Cài đặt dependencies, devDependencies và khởi chạy server.
 
