@@ -165,3 +165,40 @@
     }
   })
 </script>
+
+<script>
+  const backgrounds = [
+    {
+      url: "/assets/background/pexels-photo-1640777.jpeg",
+      dark: false,
+    },
+    {
+      url: "/assets/background/pexels-photo-2983101.jpeg",
+      dark: true,
+    },
+    {
+      url: "/assets/background/pexels-photo-3217156.webp",
+      dark: false,
+    },
+    {
+      url: "/assets/background/pexels-photo-3756523.jpeg",
+      dark: false,
+    },
+
+  ]
+
+  const randomBackground = backgrounds[Math.floor(Math.random() * backgrounds.length)];
+
+  document.body.style.backgroundImage = `url(${randomBackground.url})`;
+
+  //background cover
+  document.body.style.backgroundSize = "cover";
+  document.body.style.backgroundPosition = "center";
+  document.body.style.backgroundRepeat = "no-repeat";
+
+  // if dark, set dark mode
+  if (randomBackground.dark) {
+    document.documentElement.classList.add('dark')
+  }
+  
+</script>

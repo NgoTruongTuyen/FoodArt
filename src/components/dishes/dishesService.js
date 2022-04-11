@@ -16,7 +16,7 @@ export const getDishWithTheSameCategory = async ({ dish }) => {
 };
 
 // Mongoose interaction
-export const getNewMovies = async ({
+export const getNewDishes = async ({
   page = 1,
   limit = 10,
   categorySlugs = [],

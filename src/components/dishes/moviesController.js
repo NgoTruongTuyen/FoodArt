@@ -5,7 +5,7 @@ import Comment from "./commentModel";
 
 import createError from "http-errors";
 import {
-  getNewMovies,
+  getNewDishes,
   getDishWithTheSameCategory,
   increaseViewCount,
   getRandomMovies,
@@ -23,7 +23,7 @@ export const getMovies = async (req, res, next) => {
   const categorySlugs = req.query.categorySlugs || [];
 
   try {
-    const dishes = await getNewMovies({
+    const dishes = await getNewDishes({
       page: page,
       limit,
       matchName,
@@ -52,7 +52,7 @@ export const getTopMovies = async (req, res, next) => {
   const limit = req.query.limit || 10;
 
   try {
-    const dishes = await getNewMovies({
+    const dishes = await getNewDishes({
       page,
       limit,
       sortByDate: false,
