@@ -210,6 +210,21 @@
 
   $("#categorySelect").val(categoriesId)
 
+  function deleteSeason(seasonSlug) {
+    if (confirm("Bạn có chắc chắn muốn xóa?")) {
+      $.ajax({
+        url: `/season/{{dish.slug}}/${seasonSlug}`,
+        data: {
+          _csrf: "{{@root/_csrfToken}}"
+
+        },
+        type: 'DELETE',
+        success: function (result) {
+          location.reload();
+        }
+      });
+    }
+  }
   $("textarea").each(function () {
     this.setAttribute("style", "height:" + (this.scrollHeight) + "px;overflow-y:hidden;");
   }).on("input", function () {
@@ -218,8 +233,4 @@
   });
 
 
-</script>
-
-<script>
-  CKEDITOR.replace('description')
 </script>
