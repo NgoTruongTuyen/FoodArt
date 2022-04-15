@@ -23,6 +23,10 @@ export const postLogin = async (req, res) => {
       throw new Error("Mật khẩu không đúng");
     }
 
+    if(!user.isActivated) {
+      throw new Error("User is not activated yet");
+    }
+
     // create token
     const token = jwt.sign(
       {

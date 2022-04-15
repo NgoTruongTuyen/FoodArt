@@ -73,14 +73,14 @@ export const postActivate = async (req, res) => {
   const msg = {
     to: user.email,
     from: process.env.SENDGRID_EMAIL,
-    subject: "Xác thực tài khoản PhimMoi",
+    subject: "Xác thực tài khoản FoodArt",
     text: `Xin chào ${user.fullname},\n\n`,
     html: `<h1>Xin chào ${user.fullname}</h1>
-    <p>Bạn đã đăng ký tài khoản thành công tại PhimMoi</p>
+    <p>Bạn đã đăng ký tài khoản thành công tại FoodArt</p>
     <p>Vui lòng click vào link bên dưới để kích hoạt tài khoản</p>
     <a href="${process.env.DOMAIN_NAME}/user/activate?email=${user.email}&token=${user.activationToken}">Xác thực tài khoản</a>
     <p>Nếu bạn không phải là người đăng ký tài khoản này, vui lòng bỏ qua email này.</p>
-    <p>PhimMoi</p>
+    <p>Foodart</p>
   `,
   };
   sgMail
@@ -93,7 +93,7 @@ export const postActivate = async (req, res) => {
       });
     })
     .catch((err) => {
-      console.log("send email", err);
+      console.log("send email", err.response.body);
       res.json({
         success: false,
         message: "Email not sent",
