@@ -80,6 +80,27 @@ export const pagingCategories = async (req, res, next) => {
     next(createError(404, err));
   }
 };
+
+
+export const deleteCategory = async (req, res, next) => {
+  try {
+    const { slug } = req.params;
+
+    const cat = await Category.findOne({ slug });
+
+    if (!cat) {
+      throw new Error("Category not found");
+    }
+
+    await cat.remove();
+
+    res.json({ success: true, message: "Xóa chuyên mục thành công !" });
+  } catch (err) {
+    res.json({ success: false, message: "Xóa chuyên mục thất bại !" });
+  }
+};
+
+
 // export function addCategory(req, res) {
 //   const category = new Category(req.body);
 

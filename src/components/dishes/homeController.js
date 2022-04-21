@@ -9,10 +9,10 @@ export const getHomePage = async (req, res) => {
   const reviewMoi = getNewDishes({ page, limit });
 
   // fetch phim hanh dong
-  const monNhatBan = getNewDishes({
+  const anCaTheGioi = getNewDishes({
     page,
     limit,
-    categorySlugs: ["nhat-ban"],
+    categorySlugs: ["an-ca-the-gioi"],
   });
 
   // fetch phim hoat hinh
@@ -39,13 +39,13 @@ export const getHomePage = async (req, res) => {
     reviewMoiData,
     monTrungQuocData,
     monVietnamData,
-    monNhatBanData,
+    anCaTheGioiData,
     onlineUsersData,
   ] = await Promise.all([
     reviewMoi,
     monTrungQuoc,
     monVietnam,
-    monNhatBan,
+    anCaTheGioi,
     onlineUsers,
   ]);
 
@@ -55,7 +55,7 @@ export const getHomePage = async (req, res) => {
       reviewMoi: reviewMoiData,
       monTrungQuoc: monTrungQuocData,
       monVietnam: monVietnamData,
-      monNhatBan: monNhatBanData,
+      anCaTheGioi: anCaTheGioiData,
     },
     onlineUsers: onlineUsersData,
   });
