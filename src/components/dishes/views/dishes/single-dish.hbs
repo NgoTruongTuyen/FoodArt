@@ -39,7 +39,19 @@
         {{/ifEquals}} --}}
         <div class="flex flex-col divide-y divide-base-300" {{#ifEquals user.role "admin" }} id="filmEditForm"
           {{/ifEquals}}>
-          <p class="p-2 text-base-content text-lg">{{dish.title}} - {{dish.englishTitle}}</p>
+          <p class="p-2 text-base-content text-lg">{{dish.title}} 
+
+           {{#if dish.englishTitle}} 
+            
+            -
+            {{dish.englishTitle}}
+
+
+            {{/if}}
+
+
+
+          </p>
           {{!-- <div class="p-2 text-base-content">Mới cập nhật:
             <a class="halim-episode" href="/dishes/{{dish.slug}}"><span
                 class="bg-pink-200 dark:bg-pink-300 p-2 hover:bg-opacity-80 text-black shadow-sm font-bold rounded transition duration-300"
@@ -77,7 +89,7 @@
 
             {{/each}}
           </div>
-          <div class="p-2">Quốc gia: <a href="/country/my" title="Mỹ" class="font-bold">Mỹ</a></div>
+          {{!-- <div class="p-2">Quốc gia: <a href="/country/my" title="Mỹ" class="font-bold">Mỹ</a></div> --}}
 
           {{!-- Overview --}}
           <div class="p-2">

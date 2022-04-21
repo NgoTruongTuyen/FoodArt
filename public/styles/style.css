@@ -954,9 +954,6 @@ video {
 	left: 0px;
 	right: 0px;
 }
-.right-2 {
-	right: 0.5rem;
-}
 .bottom-4 {
 	bottom: 1rem;
 }
@@ -1631,10 +1628,6 @@ video {
 	--tw-bg-opacity: 1;
 	background-color: rgba(59, 130, 246, var(--tw-bg-opacity));
 }
-.bg-red-500 {
-	--tw-bg-opacity: 1;
-	background-color: rgba(239, 68, 68, var(--tw-bg-opacity));
-}
 .bg-red-200 {
 	--tw-bg-opacity: 1;
 	background-color: rgba(254, 202, 202, var(--tw-bg-opacity));
@@ -2141,11 +2134,6 @@ html[data-theme="dark"] .card-badge {
 	background-color: rgba(29, 78, 216, var(--tw-bg-opacity));
 }
 
-.hover\:bg-red-700:hover {
-	--tw-bg-opacity: 1;
-	background-color: rgba(185, 28, 28, var(--tw-bg-opacity));
-}
-
 .hover\:bg-green-300:hover {
 	--tw-bg-opacity: 1;
 	background-color: rgba(134, 239, 172, var(--tw-bg-opacity));
@@ -2315,11 +2303,6 @@ html[data-theme="dark"] .card-badge {
 	background-color: rgba(21, 128, 61, var(--tw-bg-opacity));
 }
 
-.dark .dark\:bg-gray-600 {
-	--tw-bg-opacity: 1;
-	background-color: rgba(82, 82, 91, var(--tw-bg-opacity));
-}
-
 .dark .dark\:bg-pink-500 {
 	--tw-bg-opacity: 1;
 	background-color: rgba(236, 72, 153, var(--tw-bg-opacity));
@@ -2383,11 +2366,6 @@ html[data-theme="dark"] .card-badge {
 .dark .dark\:hover\:bg-gray-800:hover {
 	--tw-bg-opacity: 1;
 	background-color: rgba(39, 39, 42, var(--tw-bg-opacity));
-}
-
-.dark .dark\:hover\:bg-gray-500:hover {
-	--tw-bg-opacity: 1;
-	background-color: rgba(113, 113, 122, var(--tw-bg-opacity));
 }
 
 .dark .dark\:hover\:bg-green-400:hover {

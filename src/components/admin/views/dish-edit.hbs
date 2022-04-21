@@ -43,70 +43,10 @@
         </div>
       </div>
 
-      {{!-- Dish trailer --}}
-      <div class="mb-4">
-        <label for="trailer" class="block text-base-content text-opacity-60 text-sm font-bold mb-2">
-          Trailer
-        </label>
-        <input
-          class="shadow appearance-none border rounded w-full py-2 px-3 text-black text-opacity-60 leading-tight focus:outline-none focus:shadow-outline"
-          id="trailer" type="text" name="trailer" value="{{dish.trailer}}" />
-      </div>
-
-      {{!-- Dish time --}}
-      <div class="mb-4">
-        <label for="time" class="block text-base-content text-opacity-60 text-sm font-bold mb-2">
-          Time
-        </label>
-        <input
-          class="shadow appearance-none border rounded w-full py-2 px-3 text-black text-opacity-60 leading-tight focus:outline-none focus:shadow-outline"
-          id="time" type="text" name="time" value="{{dish.time}}" />
-      </div>
-
-      {{!-- Dish premiere --}}
-      <div class="mb-4">
-        <label for="premiere" class="block text-base-content text-opacity-60 text-sm font-bold mb-2">
-          Premiere
-        </label>
-        <input
-          class="shadow appearance-none border rounded w-full py-2 px-3 text-black text-opacity-60 leading-tight focus:outline-none focus:shadow-outline"
-          id="premiere" type="text" name="premiere" value="{{dish.premiere}}" />
-      </div>
-
-      {{!-- Dish releaseyear --}}
-      <div class="mb-4">
-        <label for="releaseyear" class="block text-base-content text-opacity-60 text-sm font-bold mb-2">
-          Release year
-        </label>
-        <input
-          class="shadow appearance-none border rounded w-full py-2 px-3 text-black text-opacity-60 leading-tight focus:outline-none focus:shadow-outline"
-          id="releaseyear" type="text" name="releaseYear" value="{{dish.releaseYear}}" />
-      </div>
-
-      {{!-- Dish rating --}}
-      <div class="mb-4">
-        <label for="rating" class="block text-base-content text-opacity-60 text-sm font-bold mb-2">
-          Rating
-        </label>
-        <input
-          class="shadow appearance-none border rounded w-full py-2 px-3 text-black text-opacity-60 leading-tight focus:outline-none focus:shadow-outline"
-          id="rating" type="text" name="rating" value="{{dish.rating}}" />
-      </div>
-
-      {{!-- Dish imdbId --}}
-      <div class="mb-4">
-        <label for="imdbId" class="block text-base-content text-opacity-60 text-sm font-bold mb-2">
-          ImdbId
-        </label>
-        <input
-          class="shadow appearance-none border rounded w-full py-2 px-3 text-black text-opacity-60 leading-tight focus:outline-none focus:shadow-outline"
-          id="imdbId" type="text" name="imdbId" value="{{dish.imdbId}}" />
-      </div>
-
       {{!-- Dish englishTitle --}}
       <div class="mb-4">
         <label for="englishTitle" class="block text-base-content text-opacity-60 text-sm font-bold mb-2">
-          EnglishTitle
+          EnglishTitle (opional)
         </label>
         <input
           class="shadow appearance-none border rounded w-full py-2 px-3 text-black text-opacity-60 leading-tight focus:outline-none focus:shadow-outline"
@@ -152,39 +92,7 @@
       {{> card image=dish.image title=dish.title englishTitle=dish.englishTitle slug=dish.slug }}
     </div>
 
-    {{!-- Thêm season --}}
-
-    <h3 class="text-lg text-opacity-60 font-bold mt-4 mb-2">Thêm season</h3>
-    <ul class="divide-y">
-      {{#each dish.seasons}}
-      <li class="flex justify-between gap-1">
-        <a class="p-2 bg-gray-100 dark:bg-gray-600 dark:hover:bg-gray-500 hover:bg-gray-200 flex-grow"
-          href="./season/{{slug}}">
-          {{name}}
-          {{!-- delete season --}}
-        </a>
-        <button
-          class="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded focus:outline-none focus:shadow-outline"
-          onclick="deleteSeason('{{this.slug}}')">
-          <i class="fas fa-trash-alt"></i>
-        </button>
-      </li>
-      {{/each}}
-
-      <div class="">
-        <form action="/season" method="POST" class="flex gap-1">
-          <input type="hidden" name="dish" value={{@root/dish._id}}>
-          <label for="title" class="block text-base-content text-opacity-60 text-sm font-bold mb-2">
-            Season mới
-          </label>
-          <input
-            class="shadow appearance-none border rounded w-full py-2 px-3 text-black text-opacity-60 leading-tight focus:outline-none focus:shadow-outline"
-            id="title" type="text" name="name" value="" />
-          <input type="hidden" name="_csrf" value="{{@root/_csrfToken}}">
-          <button class="btn btn-primary mt-2">Tạo season</button>
-        </form>
-      </div>
-    </ul>
+ 
   </div>
 </div>
 
