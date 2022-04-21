@@ -4,12 +4,12 @@ import {
   getAdmin,
   getAdminPanel,
   getUserPanel,
-  moviePanelEditMovie,
-  moviePanelGetIndex,
-  moviePanelGetMovie,
-  moviePanelPostMovie,
+  dishPanelEditDish,
+  dishPanelGetIndex,
+  dishPanelGetDish,
+  dishPanelPostDish,
   getCategoriesPanel,
-  moviePanelEditSeason,
+  dishPanelEditSeason,
   createAdmin,
   makeAdmin,
   banUser,
@@ -28,15 +28,15 @@ router.get("/admins", getAdminPanel);
 
 router.get("/users", getUserPanel);
 
-router.get("/dishes/", moviePanelGetIndex);
+router.get("/dishes/", dishPanelGetIndex);
 
-router.get("/dishes/:slug", moviePanelGetMovie);
+router.get("/dishes/:slug", dishPanelGetDish);
 
-router.get("/dishes/:slug/edit", moviePanelEditMovie);
+router.get("/dishes/:slug/edit", dishPanelEditDish);
 
-// router.get("/dishes/:slug/season/:seasonSlug", moviePanelEditSeason);
+// router.get("/dishes/:slug/season/:seasonSlug", dishPanelEditSeason);
 
-router.post("/dishes/:slug", moviePanelPostMovie);
+router.post("/dishes/:slug", dishPanelPostDish);
 
 router.get("/categories", getCategoriesPanel);
 

@@ -92,7 +92,7 @@ export const getUserPanel = async (req, res) => {
 };
 
 // Dish panel
-export const moviePanelGetIndex = async (req, res) => {
+export const dishPanelGetIndex = async (req, res) => {
   const page = parseInt(req.query.page) || 1;
   const limit = parseInt(req.query.limit) || 10;
 
@@ -112,10 +112,10 @@ export const moviePanelGetIndex = async (req, res) => {
   const categories = await Category.find({});
 
   // get dish count
-  const movieCount = await Dish.countDocuments();
+  const dishCount = await Dish.countDocuments();
 
   // get total pages
-  const totalPages = Math.ceil(movieCount / 10);
+  const totalPages = Math.ceil(dishCount / 10);
 
   const pagination = Array.from({ length: totalPages }, (_, i) => i + 1).map(
     (page) => {
@@ -129,7 +129,7 @@ export const moviePanelGetIndex = async (req, res) => {
   res.render("admin/views/dishes", {
     title: "Admin",
     dishes,
-    movieCount,
+    dishCount,
     categories,
     pagination,
     currentIndex: page - 1,
@@ -137,7 +137,7 @@ export const moviePanelGetIndex = async (req, res) => {
   });
 };
 
-export const moviePanelGetMovie = async (req, res) => {
+export const dishPanelGetDish = async (req, res) => {
   try {
     const dish = await Dish.findOne({ slug: req.params.slug });
 
@@ -152,7 +152,7 @@ export const moviePanelGetMovie = async (req, res) => {
   }
 };
 
-export const moviePanelEditMovie = async (req, res) => {
+export const dishPanelEditDish = async (req, res) => {
   const { slug } = req.params;
 
   try {
@@ -174,7 +174,7 @@ export const moviePanelEditMovie = async (req, res) => {
   }
 };
 
-export const moviePanelPostMovie = async (req, res) => {
+export const dishPanelPostDish = async (req, res) => {
   try {
     const dish = await Dish.findOne({ slug: req.params.slug });
 

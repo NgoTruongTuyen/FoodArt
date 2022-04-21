@@ -50,7 +50,7 @@ export const pagingCategories = async (req, res, next) => {
       },
     });
 
-    const totalMovies = await cat.__v;
+    const totalDishs = await cat.__v;
 
     // if not found
     if (!cat) {
@@ -58,7 +58,7 @@ export const pagingCategories = async (req, res, next) => {
     }
 
     // get total pages
-    const totalPages = Math.ceil(totalMovies / 10);
+    const totalPages = Math.ceil(totalDishs / 10);
 
     const pagination = Array.from({ length: totalPages }, (_, i) => i + 1).map(
       (page) => {

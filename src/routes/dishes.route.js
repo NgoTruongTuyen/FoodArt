@@ -3,25 +3,25 @@ import Dish from "../components/dishes/dishModel";
 import Category from "../components/dishes/categoryModel";
 import { requireAdmin } from "../middlewares/auth.middleware";
 import {
-  postMovie,
-  getSingleMovie,
-  getMovies,
-  getTopMovies,
+  postDish,
+  getSingleDish,
+  getDishs,
+  getTopDishs,
   getSeason,
   getEpisode,
-  editMovie,
-  deleteMovie,
-} from "../components/dishes/moviesController";
+  editDish,
+  deleteDish,
+} from "../components/dishes/dishesController";
 
 const router = Router();
 
-router.post("/", requireAdmin, postMovie);
+router.post("/", requireAdmin, postDish);
 
-router.get("/", getMovies);
-router.get("/ranking", getTopMovies);
+router.get("/", getDishs);
+router.get("/ranking", getTopDishs);
 // router.get("/:slug/season/", getSeason);
 // router.get("/:slug/:season/:episode/", getEpisode);
-router.get("/:slug", getSingleMovie);
-router.post("/:slug/edit", requireAdmin, editMovie);
-router.post("/:slug/delete", requireAdmin, deleteMovie);
+router.get("/:slug", getSingleDish);
+router.post("/:slug/edit", requireAdmin, editDish);
+router.post("/:slug/delete", requireAdmin, deleteDish);
 export default router;

@@ -68,8 +68,8 @@ export const getNewDishes = async ({
   return dishes;
 };
 
-export const increaseViewCount = async (movieId) => {
-  const dish = await Dish.findById(movieId);
+export const increaseViewCount = async (dishId) => {
+  const dish = await Dish.findById(dishId);
 
   if (!dish) {
     throw createError(404, "Dish not found");
@@ -80,10 +80,10 @@ export const increaseViewCount = async (movieId) => {
 };
 
 // get random 10 dishes
-export const getRandomMovies = async ({ limit = 10 }) => {
+export const getRandomDishs = async ({ limit = 10 }) => {
   const dishes = await Dish.find({}).lean(true);
   // shuffle array
-  const shuffledMovies = dishes.sort(() => 0.5 - Math.random());
+  const shuffledDishs = dishes.sort(() => 0.5 - Math.random());
 
-  return shuffledMovies.slice(0, limit);
+  return shuffledDishs.slice(0, limit);
 };

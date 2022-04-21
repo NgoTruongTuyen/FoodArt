@@ -6,9 +6,9 @@ export const getFavorites = async (req, res) => {
     //get user favorite dishes
     const user = await User.findById(res.locals.user.id).populate("favorites");
   
-    const favoriteMovies = user.favorites;
+    const favoriteDishs = user.favorites;
   
-    res.render("auth/views/favorite", { title: "Favorite", favoriteMovies });
+    res.render("auth/views/favorite", { title: "Favorite", favoriteDishs });
 };
 
 export const addFavorite = async (req, res, next) => {
@@ -24,7 +24,7 @@ export const addFavorite = async (req, res, next) => {
   
       // check if dish is already in favorites
       const isFavorite = user.favorites.some(
-        (movieId) => movieId.toString() === dish._id.toString()
+        (dishId) => dishId.toString() === dish._id.toString()
       );
   
       if (isFavorite) {

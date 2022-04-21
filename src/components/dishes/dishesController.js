@@ -8,11 +8,11 @@ import {
   getNewDishes,
   getDishWithTheSameCategory,
   increaseViewCount,
-  getRandomMovies,
+  getRandomDishs,
 } from "./dishesService";
 
 // Routing
-export const getMovies = async (req, res, next) => {
+export const getDishs = async (req, res, next) => {
   // page
   const page = parseInt(req.query.page) || 1;
   // limit
@@ -45,7 +45,7 @@ export const getMovies = async (req, res, next) => {
   }
 };
 
-export const getTopMovies = async (req, res, next) => {
+export const getTopDishs = async (req, res, next) => {
   // page
   const page = req.query.page || 1;
   // limit
@@ -73,7 +73,7 @@ export const getTopMovies = async (req, res, next) => {
   }
 };
 
-export const getSingleMovie = async (req, res, next) => {
+export const getSingleDish = async (req, res, next) => {
   try {
     const { slug } = req.params;
 
@@ -92,7 +92,7 @@ export const getSingleMovie = async (req, res, next) => {
     if (res.locals.user) {
       const user = await User.findById(res.locals.user.id);
       isFavorite = user.favorites.some(
-        (movieId) => movieId.toString() === dish._id.toString()
+        (dishId) => dishId.toString() === dish._id.toString()
       );
     }
 
@@ -129,21 +129,21 @@ export const getSingleMovie = async (req, res, next) => {
       }
     );
     // new dishes
-    const newSingleMovies = getDishWithTheSameCategory({
+    const newSingleDishs = getDishWithTheSameCategory({
       dish,
       page: 1,
       limit: 10,
     });
-    const randomMovies = getRandomMovies({ limit: 10 });
+    const randomDishs = getRandomDishs({ limit: 10 });
 
-    const [commentsResolved, randomMoviesResolved, newSingleMoviesResolved] =
-      await Promise.all([comments, randomMovies, newSingleMovies]);
+    const [commentsResolved, randomDishsResolved, newSingleDishsResolved] =
+      await Promise.all([comments, randomDishs, newSingleDishs]);
 
     res.render("dishes/views/dishes/single-dish", {
       title: dish.title,
       dish,
-      newSingleMovies: newSingleMoviesResolved,
-      randomMovies: randomMoviesResolved,
+      newSingleDishs: newSingleDishsResolved,
+      randomDishs: randomDishsResolved,
       isFavorite,
       comments: commentsResolved,
       success,
@@ -189,7 +189,7 @@ export const getEpisode = async (req, res, next) => {
   }
 };
 
-export const postMovie = async (req, res) => {
+export const postDish = async (req, res) => {
   // console.log(req.body);
 
   try {
@@ -209,7 +209,7 @@ export const postMovie = async (req, res) => {
     } = req.body;
 
     // create dish with mongoose
-    const newMovie = await Dish.create({
+    const newDish = await Dish.create({
       title,
       englishTitle,
       image,
@@ -224,7 +224,7 @@ export const postMovie = async (req, res) => {
       categories,
     });
 
-    // console.log(newMovie);
+    // console.log(newDish);
     // res.json({ success: true, data: newCat });
 
     req.flash("success", `${title} - ${englishTitle} has been added`);
@@ -235,7 +235,7 @@ export const postMovie = async (req, res) => {
   }
 };
 
-export const updateMovie = async (req, res) => {
+export const updateDish = async (req, res) => {
   try {
     const {
       title,
@@ -253,7 +253,7 @@ export const updateMovie = async (req, res) => {
 
     const { id } = req.params;
 
-    const updatedMovie = await Dish.findByIdAndUpdate(
+    const updatedDish = await Dish.findByIdAndUpdate(
       id,
       {
         title,
@@ -271,13 +271,13 @@ export const updateMovie = async (req, res) => {
       { new: true }
     );
 
-    res.json({ success: true, data: updatedMovie });
+    res.json({ success: true, data: updatedDish });
   } catch (err) {
     res.json({ success: false, message: err.message });
   }
 };
 
-export const getMovieByCategory = async (req, res) => {
+export const getDishByCategory = async (req, res) => {
   try {
     const { slug } = req.params;
 
@@ -292,7 +292,7 @@ export const getMovieByCategory = async (req, res) => {
   }
 };
 
-export const editMovie = async (req, res) => {
+export const editDish = async (req, res) => {
   try {
     // check if method put
     if (req.body._method !== "PUT") {
@@ -338,7 +338,7 @@ export const editMovie = async (req, res) => {
   }
 };
 
-export const deleteMovie = async (req, res) => {
+export const deleteDish = async (req, res) => {
   try {
     if (req.body._method !== "DELETE") {
       return;
