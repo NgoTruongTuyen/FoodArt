@@ -311,7 +311,10 @@ export const editDish = async (req, res) => {
       rating,
       imdbId,
       englishTitle,
+      categories
     } = req.body;
+
+    console.log(categories);
 
     let query = {
       description,
@@ -324,6 +327,7 @@ export const editDish = async (req, res) => {
       rating,
       imdbId,
       englishTitle,
+      categories
     };
 
     // edit dish in db
