@@ -196,7 +196,7 @@
 </script> --}}
 
 <script id="toast-error" type="text/x-handlebar">
-  <div class="toast flex items-center justify-between max-w-xs p-4 bg-white border rounded-md shadow-sm fixed top-20 right-5">
+  <div class="toast flex items-center justify-between max-w-xs p-4 bg-white border rounded-md shadow-sm fixed top-20 right-5 z-[1000]">
     <div class="flex items-center">
       <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 text-red-600" viewBox="0 0 20 20" fill="currentColor">
         <path fill-rule="evenodd"
@@ -262,14 +262,13 @@
       },
       success: function (res) {
         if (res.success) {
-          notify(res.message, res.success);
-          const template = Handlebars.compile($('#removeFavorite').html());
-          const html = template({
-            slug: res.slug,
-            username: '{{@root/user.username}}',
-          });
-          $('#' + '{{@root/user.username}}' + "-Child").remove();
-          $('#' + '{{@root/user.username}}').prepend(html);
+          alert("Đã thêm vào yêu thích");
+
+          // reload in 3s
+          setTimeout(function () {
+            location.reload();
+          }, 400);
+
         } else {
           notify(res.message, res.success)
         }
@@ -286,14 +285,14 @@
       },
       success: function (res) {
         if (res.success) {
-          notify(res.message, res.success);
-          const template = Handlebars.compile($('#addFavorite').html());
-          const html = template({
-            slug: res.slug,
-            username: '{{@root/user.username}}',
-          });
-          $('#' + '{{@root/user.username}}' + "-Child").remove();
-          $('#' + '{{@root/user.username}}').prepend(html);
+
+
+          alert("Đã xóa khỏi yêu thích");
+
+          // reload in 3s
+          setTimeout(function () {
+            location.reload();
+          }, 400);
         } else {
           notify(res.message, data.success)
         }
